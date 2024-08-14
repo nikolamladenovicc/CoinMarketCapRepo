@@ -7,8 +7,8 @@ import org.json.JSONObject;
 
 public class BTest1 {
 
-    private static final String API_KEY = "YOUR_API_KEY_HERE";
-    private static final String BASE_URL = "https://pro-api.coinmarketcap.com/v1";
+    private static final String API_KEY = "8d958aa8-26e3-4821-afc2-345aadceab10";
+    private static final String BASE_URL = "https://pro-api.coinmarketcap.com/";
 
     public static void main(String[] args) {
         // Step 1: Retrieve the IDs of BTC, USDT, and ETH
@@ -33,7 +33,7 @@ public class BTest1 {
                 .baseUri(BASE_URL)
                 .header("X-CMC_PRO_API_KEY", API_KEY)
                 .contentType(ContentType.JSON)
-                .get("/cryptocurrency/map");
+                .get("v1/cryptocurrency/map");
 
         if (response.getStatusCode() == 200) {
             JSONArray dataArray = new JSONObject(response.getBody().asString()).getJSONArray("data");
@@ -55,21 +55,25 @@ public class BTest1 {
      *
      * @param cryptoId The cryptocurrency ID.
      */
+
+
     private static void convertToBoliviano(int cryptoId) {
         Response response = RestAssured.given()
                 .baseUri(BASE_URL)
                 .header("X-CMC_PRO_API_KEY", API_KEY)
                 .contentType(ContentType.JSON)
                 .queryParam("id", cryptoId)
+                .queryParam("amount", 1)  // Convert 1 unit of the cryptocurrency
                 .queryParam("convert", "BOB")
-                .get("/tools/price-conversion");
+                .get("v2/tools/price-conversion");
 
         if (response.getStatusCode() == 200) {
             JSONObject data = new JSONObject(response.getBody().asString()).getJSONObject("data");
-            double priceInBob = data.getDouble("quote");
+            double priceInBob = data.getJSONObject("quote").getJSONObject("BOB").getDouble("price");
             System.out.println("Price of ID " + cryptoId + " in BOB: " + priceInBob);
         } else {
             System.out.println("Failed to convert ID " + cryptoId + " to BOB. Status Code: " + response.getStatusCode());
+            System.out.println("Response: " + response.getBody().asString());
         }
     }
 }
