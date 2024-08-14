@@ -36,16 +36,16 @@ public class Test2 {
         driver.get("https://coinmarketcap.com/");
 
         // Select between 5 and 10 random cryptocurrencies
-        List<WebElement> cryptoRows = driver.findElements(By.cssSelector(".cmc-table-row"));
+        List<WebElement> cryptoRows = driver.findElements(By.cssSelector("#__next > div.sc-2e66506f-1.buMEwe.global-layout-v2 > div.main-content > div.cmc-body-wrapper > div > div:nth-child(1) > div.sc-7b3ac367-2.cFnHu > table"));
         numCryptosToSelect = Math.min(cryptoRows.size(), numCryptosToSelect); // Ensure we don't exceed available cryptos
 
         for (int i = 0; i < numCryptosToSelect; i++) {
             WebElement cryptoRow = cryptoRows.get(i);
 
-            WebElement ellipsis = cryptoRow.findElement(By.cssSelector("button.cmc-button"));
+            WebElement ellipsis = cryptoRow.findElement(By.tagName("img"));
             ellipsis.click();
 
-            WebElement addToWatchlistButton = driver.findElement(By.xpath("//span[text()='Add to Watchlist']"));
+            WebElement addToWatchlistButton = driver.findElement(By.className("sc-65e7f566-0 sc-768207e8-0 eQBACe faBHBV full-action-btn"));
             addToWatchlistButton.click();
 
             driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
