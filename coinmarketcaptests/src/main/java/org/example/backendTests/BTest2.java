@@ -45,16 +45,21 @@ public class BTest2 {
 
         }
 
-        if (data.has("technical_doc")){
-            boolean foundDoc = data.getJSONArray("technical_doc").toList().contains("https://github.com/ethereum/wiki/wiki/White-Paper");
-            if (foundDoc){
-                System.out.println("TEST PASSED| Technical documentation URI is correct.");
-            }else {
-                System.out.println("TEST FAILED| Technical documentation URI is missing or incorrect.");
+        // 2. Validate the technical documentation URI
+        if (data.has("urls")) {
+            JSONObject urls = data.getJSONObject("urls");
+            if (urls.has("technical_doc")) {
+                boolean foundDoc = urls.getJSONArray("technical_doc").toList().contains("https://github.com/ethereum/wiki/wiki/White-Paper");
+                if (foundDoc) {
+                    System.out.println("TEST PASSED| Technical documentation URI is correct. URI is:" + urls.getJSONArray("technical_doc").toList());
+                } else {
+                    System.out.println("TEST FAILED| Technical documentation URI is missing or incorrect.");
+                }
+            } else {
+                System.out.println("TEST FAILED| No technical documentation found.");
             }
-
-        }else {
-            System.out.println("TEST FAILED| No technical documentation found.");
+        } else {
+            System.out.println("TEST FAILED| URLs section is missing.");
         }
 
         String symbol = data.getString("symbol");
