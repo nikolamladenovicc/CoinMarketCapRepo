@@ -15,7 +15,28 @@ public class BTest3 {
     private static final String BASE_URL = "https://pro-api.coinmarketcap.com/";
 
     public static void main(String[] args) {
+        retrieveCurrencies();
         retrieveMineableCurrencies();
+
+    }
+
+    private static void retrieveCurrencies(){
+        Response response = RestAssured.given()
+                .baseUri(BASE_URL)
+                .header("X-CMC_PRO_API_KEY", API_KEY)
+                .contentType(ContentType.JSON)
+                .queryParam("id", "1,2,3,4,5,6,7,8,9,10")
+                .get("v2/cryptocurrency/info");
+
+        if (response.getStatusCode() == 200) {
+            JSONObject data = new JSONObject(response.getBody().asString()).getJSONObject("data");
+            System.out.println("Printing out the first 10 currencies: ");
+            for (String id : data.keySet()) {
+                String name = data.getJSONObject(id).getString("name");
+                JSONArray tags = data.getJSONObject(id).getJSONArray("tags");
+                System.out.println("ID: " + id + " | Name: " + name + " | Tags: " + tags);
+            }
+        }
 
     }
     private static void retrieveMineableCurrencies(){
@@ -41,10 +62,13 @@ public class BTest3 {
             }
             // Step 3: Print out the mineable cryptocurrencies
             if (!mineableCurrencies.isEmpty()) {
-                System.out.println("The following currencies are mineable:");
+                System.out.println("");
+                System.out.println("Checking which currencies have the mineable tag...");
+                System.out.println("The following currencies have the 'mineable' tag:");
                 for (String id : mineableCurrencies) {
                     String name = data.getJSONObject(id).getString("name");
-                    System.out.println("ID: " + id + ", Name: " + name);
+                    JSONArray tags = data.getJSONObject(id).getJSONArray("tags");
+                    System.out.println("ID: " + id + " | Name: " + name + " | Tags: " + tags);
                 }
             } else {
                 System.out.println("No mineable currencies found among the first 10.");

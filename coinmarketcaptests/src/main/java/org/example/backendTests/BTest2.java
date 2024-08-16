@@ -3,6 +3,7 @@ package org.example.backendTests;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class BTest2 {
@@ -90,7 +91,7 @@ public class BTest2 {
             if (isMineable) {
                 System.out.println("TEST PASSED| Mineable tag is present.");
             } else {
-                System.out.println("TEST FAILED| Mineable tag is missing.");
+                System.out.println("TEST FAILED| 'Mineable' tag does not exist.");
             }
         } else {
             System.out.println("TEST FAILED| No tags found.");
