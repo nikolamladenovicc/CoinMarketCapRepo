@@ -18,7 +18,7 @@ public class Test1b {
     @BeforeMethod
     public void setup() {
         // Postavi putanju do ChromeDriver-a
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\QH0158\\IdeaProjects\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Korisnik\\IdeaProjects\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
