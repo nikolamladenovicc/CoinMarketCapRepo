@@ -4,33 +4,42 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
 public class Test1 {
 
-    public static void main(String[] args) {
-        // Set the path of the ChromeDriver
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\QH0158\\IdeaProjects\\chromedriver\\chromedriver.exe");
+    private WebDriver driver;
 
-        WebDriver driver = new ChromeDriver();
+    @BeforeMethod
+    public void setup() {
+        // Postavi putanju do ChromeDriver-a
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Korisnik\\IdeaProjects\\chromedriver\\chromedriver.exe");
+        driver = new ChromeDriver();
+    }
 
-        try {
-            driver.get("https://coinmarketcap.com/");
+    @Test
+    public void testViewAllResultsDisplayed() {
+        // Otvori CoinMarketCap stranicu
+        driver.get("https://coinmarketcap.com/");
 
-            WebElement viewAll = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[3]/div[2]/div[2]/div[1]/a[1]/button"));
-            viewAll.click();
+        // Klikni na "View All"
+        WebElement viewAll = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[3]/div[2]/div[2]/div[1]/a[1]/button"));
+        viewAll.click();
 
-            List<WebElement> results = driver.findElements(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[4]/table"));
-            if (!results.isEmpty()) {
-                System.out.println("TEST PASSED| All results are displayed.");
-            } else {
-                System.out.println("TEST FAILED| No results are displayed.");
-            }
+        // Proveri da li su svi rezultati prikazani
+        List<WebElement> results = driver.findElements(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[4]/table"));
+        Assert.assertFalse(results.isEmpty(), "TEST FAILED | Nema prikazanih rezultata.");
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+    @AfterMethod
+    public void teardown() {
+        // Zatvori browser
+        if (driver != null) {
             driver.quit();
         }
     }
