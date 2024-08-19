@@ -7,13 +7,15 @@ This repository contains automated frontend tests for the CoinMarketCap website.
 Before running the tests, we have to ensure that we have the following installed:
 
 1. Java Development Kit (JDK) 8 or higher
-2. Download JDK
-3. Apache Maven (for dependency management)
-4. Install Maven
-5. Google Chrome (latest version)
-6. Download Chrome
-7. ChromeDriver (compatible with our installed Chrome version)
-8. Download ChromeDriver
+   Download JDK
+2. Apache Maven (for dependency management)
+   Install Maven
+3. Google Chrome (latest version)
+   Download Chrome
+4. ChromeDriver (compatible with our installed Chrome version)
+   Download ChromeDriver
+5. Selenium for Java
+   Download Selenium
 
 ### Setup Instructions
 1. Clone the Repository
@@ -40,7 +42,7 @@ Replace "path-to-your-chromedriver" with the actual path where chromedriver.exe 
 ### Running the tests
 We will run the tests using an IDE (e.g., IntelliJ IDEA, Eclipse)
 1. Import the project into your preferred IDE.
-2. Right-click on the test class you want to run (Test1.java).
+2. Right-click on the test class you want to run (Test1.java, Test2.java, Test3.java).
 3. Select "Run 'Test1'", "'Run Test2'" or "Run 'Test3'" to execute the test.
 
 ### Test Details
@@ -67,3 +69,51 @@ We will run the tests using an IDE (e.g., IntelliJ IDEA, Eclipse)
 5. Compares the filtered data against the initially recorded data to ensure they different and prints out the result in the terminal.
 
 ## CoinMarketCap Backend Tests
+This repository contains automated backend tests for the CoinMarketCap API. The tests are implemented in Java using the RestAssured library for making HTTP requests to the API.
+
+### Prerequisites
+Before running the backend tests, ensure that you have the following installed:
+
+1. Java Development Kit (JDK) 8 or higher
+   Download JDK
+2. Apache Maven (for dependency management)
+   Install Maven
+3. CoinMarketCap API Key
+   Sign up at CoinMarketCap to get your API key.
+
+### Setup Instructions
+1. Clone the Repository
+
+First, we have to clone the repository to our local machine:
+
+> git clone <repository-url>
+> cd <repository-directory>
+
+2. Install Dependencies
+
+Navigate to the project directory and install the necessary dependencies using Maven:
+
+> mvn clean install
+
+3. Configure API Key
+
+We replace the placeholder API key in the BTest1.java file with our actual CoinMarketCap API key.
+
+> private static final String API_KEY = "your-api-key-here";
+
+Replace "your-api-key-here" with the actual API key you received after signing up.
+
+### Running the tests
+We will run the tests using an IDE (e.g., IntelliJ IDEA, Eclipse)
+1. Import the project into your preferred IDE.
+2. Right-click on the test class you want to run (BTest1.java, BTest2.java or BTest3.java).
+3. Select "Run 'BTest1'", "'Run BTest2'" or "Run 'BTest3'" to execute the test.
+
+### Test Details
+
+**BE Test 1: Cryptocurrency ID Retrieval and Conversion to Bolivian Boliviano (BOB)**
+This test performs the following steps:
+
+1. Retrieve the IDs of Bitcoin (BTC), USD Tether (USDT), and Ethereum (ETH) using the /cryptocurrency/map API call.
+2. Convert the retrieved cryptocurrency IDs to Bolivian Boliviano (BOB) using the /tools/price-conversion API call.
+3. The test prints the results to the console, including the ID of each cryptocurrency and its price in Bolivian Boliviano.
