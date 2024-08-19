@@ -79,7 +79,8 @@ public class Test2 {
         for (String cryptoName : selectedCryptos) {
             Assert.assertTrue(watchlistNames.contains(cryptoName), "Crypto " + cryptoName + " not found in watchlist!");
         }
-        Thread.sleep(1000);
+        System.out.println("TEST PASSED | Cryptocurrencies successfully added to the Watchlist.");
+        Thread.sleep(2000);
     }
 
 

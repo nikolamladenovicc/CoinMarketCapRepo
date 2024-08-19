@@ -73,11 +73,12 @@ public class Test3 {
 
         // Check the filtered data against the initial data
         if (initialCryptoNames == filteredCryptoNames){
-            System.out.println("The both initial and filtered data are the same.");
+            System.out.println("TEST FAILED | The both initial and filtered data are the same.");
         }
         else {
-            System.out.println("The filtered data is different from the initial data.");
+            System.out.println("TEST PASSED | The filtered data is different from the initial data.");
         }
+        Thread.sleep(2000);
     }
 
     @AfterClass
