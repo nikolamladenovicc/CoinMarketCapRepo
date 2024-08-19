@@ -127,11 +127,17 @@ This test performs the following steps for Ethereum (ID: 1027):
 
 1. Retrieve Ethereum technical documentation website using the /cryptocurrency/info API call.
 2. Validate the following information:
+
    -Logo URL: https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png
+
    -Technical Documentation URI: https://github.com/ethereum/wiki/wiki/White-Paper
+
    -Symbol: ETH
+
    -Date Added: 2015-08-07T00:00:00.000Z
+
    -Platform: null
+   
    -Tags: Contains "mineable"
 
 The test checks each of these values and prints the results to the console, indicating whether each validation has passed or failed.
