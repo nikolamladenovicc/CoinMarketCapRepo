@@ -18,27 +18,27 @@ public class Test1 {
     @BeforeMethod
     public void setup() {
         // Postavi putanju do ChromeDriver-a
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Korisnik\\IdeaProjects\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\QH0158\\IdeaProjects\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
     @Test
     public void testViewAllResultsDisplayed() {
-        // Otvori CoinMarketCap stranicu
+        // Open CoinMarketCap website
         driver.get("https://coinmarketcap.com/");
 
-        // Klikni na "View All"
+        // Click on "View All"
         WebElement viewAll = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[3]/div[2]/div[2]/div[1]/a[1]/button"));
         viewAll.click();
 
-        // Proveri da li su svi rezultati prikazani
+        // Check if all results are displayed
         List<WebElement> results = driver.findElements(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[4]/table"));
-        Assert.assertFalse(results.isEmpty(), "TEST FAILED | Nema prikazanih rezultata.");
+        Assert.assertFalse(results.isEmpty(), "TEST FAILED | No data to display.");
     }
 
     @AfterMethod
     public void teardown() {
-        // Zatvori browser
+        // Close the browser
         if (driver != null) {
             driver.quit();
         }

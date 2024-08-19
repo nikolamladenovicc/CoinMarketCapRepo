@@ -28,6 +28,7 @@ public class BTest3 {
                 .queryParam("id", "1,2,3,4,5,6,7,8,9,10")
                 .get("v2/cryptocurrency/info");
 
+        // Retrieve the first 10 currencies
         if (response.getStatusCode() == 200) {
             JSONObject data = new JSONObject(response.getBody().asString()).getJSONObject("data");
             System.out.println("Printing out the first 10 currencies: ");
@@ -49,7 +50,7 @@ public class BTest3 {
 
         if (response.getStatusCode() == 200){
             JSONObject data = new JSONObject(response.getBody().asString()).getJSONObject("data");
-            // Step 2: Check for mineable tag and collect the IDs
+            // Check for mineable tag and collect the IDs
             List<String> mineableCurrencies = new ArrayList<>();
             for (String id : data.keySet()){
                 JSONObject currency = data.getJSONObject(id);
@@ -60,7 +61,7 @@ public class BTest3 {
                     }
                 }
             }
-            // Step 3: Print out the mineable cryptocurrencies
+            // Print out the mineable cryptocurrencies
             if (!mineableCurrencies.isEmpty()) {
                 System.out.println("");
                 System.out.println("Checking which currencies have the mineable tag...");

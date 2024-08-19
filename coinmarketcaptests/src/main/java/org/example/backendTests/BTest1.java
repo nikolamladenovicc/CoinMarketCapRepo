@@ -11,23 +11,16 @@ public class BTest1 {
     private static final String BASE_URL = "https://pro-api.coinmarketcap.com/";
 
     public static void main(String[] args) {
-        // Step 1: Retrieve the IDs of BTC, USDT, and ETH
+        // Retrieve IDs of BTC, USDT, and ETH
         int btcId = getCryptoId("BTC");
         int usdtId = getCryptoId("USDT");
         int ethId = getCryptoId("ETH");
 
-        // Step 2: Convert the cryptocurrencies to Bolivian Boliviano (BOB)
+        // Convert the cryptocurrencies to Bolivian Boliviano (BOB)
         convertToBoliviano(btcId);
         convertToBoliviano(usdtId);
         convertToBoliviano(ethId);
     }
-
-    /**
-     * Retrieves the cryptocurrency ID using the symbol (e.g., BTC, USDT, ETH).
-     *
-     * @param symbol The cryptocurrency symbol.
-     * @return The cryptocurrency ID.
-     */
     private static int getCryptoId(String symbol) {
         Response response = RestAssured.given()
                 .baseUri(BASE_URL)
@@ -49,14 +42,6 @@ public class BTest1 {
         }
         return -1;
     }
-
-    /**
-     * Converts the cryptocurrency to Bolivian Boliviano (BOB) using the given ID.
-     *
-     * @param cryptoId The cryptocurrency ID.
-     */
-
-
     private static void convertToBoliviano(int cryptoId) {
         Response response = RestAssured.given()
                 .baseUri(BASE_URL)

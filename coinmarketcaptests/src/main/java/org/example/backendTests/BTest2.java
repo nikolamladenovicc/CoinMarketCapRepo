@@ -23,8 +23,10 @@ public class BTest2 {
                 .queryParam("id", "1027")
                 .get("v2/cryptocurrency/info");
 
+        // Retrieve the Etherem ID info.
         if (response.getStatusCode() == 200){
             JSONObject data = new JSONObject(response.getBody().asString()).getJSONObject("data").getJSONObject("1027");
+            System.out.println("Successfully retreived the data!");
             System.out.println(data);
             validateEthereumInfo(data);
 
@@ -36,6 +38,7 @@ public class BTest2 {
 
     }
     private static void validateEthereumInfo(JSONObject data){
+        // Validate that the URL is present
         String logoURL = data.getString("logo");
 
         if (logoURL.equals("https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png")){
@@ -46,7 +49,7 @@ public class BTest2 {
 
         }
 
-        // 2. Validate the technical documentation URI
+        // Validate the technical documentation URI
         if (data.has("urls")) {
             JSONObject urls = data.getJSONObject("urls");
             if (urls.has("technical_doc")) {
@@ -63,6 +66,7 @@ public class BTest2 {
             System.out.println("TEST FAILED| URLs section is missing.");
         }
 
+        // Validate the symbol currency of ETH
         String symbol = data.getString("symbol");
         if (symbol.equals("ETH")) {
             System.out.println("TEST PASSED| Symbol is correct. Symbol is: " + symbol);
@@ -70,6 +74,7 @@ public class BTest2 {
             System.out.println("TEST FAILED| Symbol is incorrect: " + symbol);
         }
 
+        // Validate the date added
         String dateAdded = data.getString("date_added");
         if (dateAdded.equals("2015-08-07T00:00:00.000Z")) {
             System.out.println("TEST PASSED| Date added is correct. Date added: " + dateAdded);
@@ -78,14 +83,14 @@ public class BTest2 {
             System.out.println("TEST FAILED| Date added is incorrect: " + dateAdded);
         }
 
-        // 5. Validate the platform is null
+        // Validate the platform is null
         if (data.isNull("platform")) {
             System.out.println("TEST PASSED| Platform is correctly set to null.");
         } else {
             System.out.println("TEST FAILED| Platform is not null.");
         }
 
-        // 6. Validate the 'mineable' tag
+        // Validate the 'mineable' tag
         if (data.has("tags")) {
             boolean isMineable = data.getJSONArray("tags").toList().contains("mineable");
             if (isMineable) {

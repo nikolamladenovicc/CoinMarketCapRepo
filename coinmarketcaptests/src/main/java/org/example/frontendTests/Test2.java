@@ -25,8 +25,8 @@ public class Test2 {
 
     @BeforeMethod
     public void setUp() {
-        // Inicijalizacija WebDriver-a
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Korisnik\\IdeaProjects\\chromedriver\\chromedriver.exe");
+        // Initialization of WebDiver
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\QH0158\\IdeaProjects\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -35,10 +35,10 @@ public class Test2 {
 
     @Test
     public void testAddCryptosToWatchlist() throws InterruptedException {
-        // Pronađi listu svih kriptovaluta na stranici
+        // Find the list of all cryptocurrencies on page
         List<WebElement> cryptoRows = driver.findElements(By.cssSelector("tbody tr"));
 
-        // Nasumično odaberi između 5 i 10 kriptovaluta
+        // Randomly choose between 5 and 10 cryptocurrencies
         Random random = new Random();
         int numberOfCryptos = random.nextInt(6) + 5; // 5 do 10
 
@@ -50,27 +50,26 @@ public class Test2 {
             String cryptoName = nameElement.getText();
             selectedCryptos.add(cryptoName);
 
-            // Klik na elipsu i dodaj na Watchlist
+            // Click on Star Icon to add to the Watchlist
             WebElement starIcon = new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.elementToBeClickable(By.className("icon-Star")));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", starIcon);
-
-            // Čekaj da se zvezda promeni (ili neki drugi indikator)
-            Thread.sleep(1000); // Ubaci čekanje pre prelaska na sledeći kripto
+            // Wait for the Star Icon to change
+            Thread.sleep(1000);
         }
 
-        // Otvori novi tab
+        // Open the new tab
         ((JavascriptExecutor) driver).executeScript("window.open()");
 
-        // Prebaci se na novi tab
+        // Switch to another tab
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1)); // Prebaci se na drugi tab (indeks 1)
 
-        // Otvori Watchlist
+        // Open the Watchlist page
         driver.get("https://coinmarketcap.com/watchlist/");
         Thread.sleep(1000);
 
-        // Proveri da li su sve odabrane kriptovalute dodate na Watchlist
+        // Check if the all selected cryptocurrencies are added to Watchlist
         List<WebElement> watchlistItems = driver.findElements(By.xpath("//*[@id=\"__next\"]/div[2]/div/div[2]/div/div/div[1]/div[3]/table/tbody/tr[1]/td[3]/div/a/div/div/div/p"));
         List<String> watchlistNames = new ArrayList<>();
         for (WebElement item : watchlistItems) {
@@ -86,7 +85,7 @@ public class Test2 {
 
     @AfterMethod
     public void tearDown() {
-        // Zatvori pretraživač
+        // Close the browser
         if (driver != null) {
             driver.quit();
         }
