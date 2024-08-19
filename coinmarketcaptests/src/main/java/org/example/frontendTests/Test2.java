@@ -63,7 +63,7 @@ public class Test2 {
 
         // Switch to another tab
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1)); // Prebaci se na drugi tab (indeks 1)
+        driver.switchTo().window(tabs.get(1)); // Switch to another tab (index 1)
 
         // Open the Watchlist page
         driver.get("https://coinmarketcap.com/watchlist/");

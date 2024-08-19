@@ -137,7 +137,7 @@ This test performs the following steps for Ethereum (ID: 1027):
    -Date Added: 2015-08-07T00:00:00.000Z
 
    -Platform: null
-   
+
    -Tags: Contains "mineable"
 
 The test checks each of these values and prints the results to the console, indicating whether each validation has passed or failed.
