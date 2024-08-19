@@ -49,7 +49,7 @@ We will run the tests using an IDE (e.g., IntelliJ IDEA, Eclipse)
 
 1. Opens the CoinMarketCap website.
 2. Clicks on the "View All" button.
-3. Verifies that all results are displayed on the page and if they are it will show "TEST PASSED" in the terminal.
+3. Verifies that all results are displayed on the page and if they are, all the tests will pass.
 
 **FE Test 2: Add Cryptocurrencies to Watchlist and Verify**
 
@@ -57,4 +57,13 @@ We will run the tests using an IDE (e.g., IntelliJ IDEA, Eclipse)
 2. Selects between 5 and 10 random cryptocurrencies from the list.
 3. Adds the selected cryptocurrencies to the Watchlist by clicking the star icon next to each cryptocurrency.
 4. Opens the Watchlist page in a new browser tab.
-5. Verifies that the selected cryptocurrencies have been added to the Watchlist.
+5. Verifies that the selected cryptocurrencies have been added to the Watchlist and if they are, all the tests will pass.
+
+**FE Test 3: Filter Functionality on Full List of Cryptocurrencies**
+1. Opens the CoinMarketCap website.
+2. Navigates to the Cryptocurrencies tab and clicks on one of the Full List options.
+3. Records the data of the current page.
+4. Applies filters using the available dropdown menus above the tab list.
+5. Compares the filtered data against the initially recorded data to ensure they different and prints out the result in the terminal.
+
+## CoinMarketCap Backend Tests
