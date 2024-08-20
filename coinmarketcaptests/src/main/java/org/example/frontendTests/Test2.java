@@ -1,6 +1,8 @@
 
 package org.example.frontendTests;
 
+import org.example.pageObjectModels.MainPage;
+import org.example.pageObjectModels.WatchlistPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 public class Test2 {
 
     private WebDriver driver;
+    private MainPage mainPage;
+    private WatchlistPage watchlistPage;
 
     @BeforeMethod
     public void setUp() {
@@ -31,12 +35,15 @@ public class Test2 {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("https://coinmarketcap.com/");
+
+        mainPage = new MainPage(driver);
+        watchlistPage = new WatchlistPage(driver);
     }
 
     @Test
     public void testAddCryptosToWatchlist() throws InterruptedException {
         // Find the list of all cryptocurrencies on page
-        List<WebElement> cryptoRows = driver.findElements(By.cssSelector("tbody tr"));
+        List<WebElement> cryptoRows = mainPage.getCryptoRows();
 
         // Randomly choose between 5 and 10 cryptocurrencies
         Random random = new Random();
@@ -46,14 +53,11 @@ public class Test2 {
 
         for (int i = 0; i < numberOfCryptos; i++) {
             WebElement cryptoRow = cryptoRows.get(i);
-            WebElement nameElement = cryptoRow.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[4]/table/tbody/tr[1]/td[3]/div/a/div/div/div/p"));
-            String cryptoName = nameElement.getText();
+            String cryptoName = mainPage.getCryptoName(cryptoRow);
             selectedCryptos.add(cryptoName);
 
             // Click on Star Icon to add to the Watchlist
-            WebElement starIcon = new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.elementToBeClickable(By.className("icon-Star")));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", starIcon);
+            mainPage.addToWatchlist(cryptoRow);
             // Wait for the Star Icon to change
             Thread.sleep(1000);
         }
@@ -70,10 +74,10 @@ public class Test2 {
         Thread.sleep(1000);
 
         // Check if the all selected cryptocurrencies are added to Watchlist
-        List<WebElement> watchlistItems = driver.findElements(By.xpath("//*[@id=\"__next\"]/div[2]/div/div[2]/div/div/div[1]/div[3]/table/tbody/tr[1]/td[3]/div/a/div/div/div/p"));
+        List<WebElement> watchlistItems = watchlistPage.getWatchlistItems();
         List<String> watchlistNames = new ArrayList<>();
         for (WebElement item : watchlistItems) {
-            watchlistNames.add(item.getText());
+            watchlistNames.add(watchlistPage.getWatchlistItemName(item));
         }
 
         for (String cryptoName : selectedCryptos) {

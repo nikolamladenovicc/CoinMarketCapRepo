@@ -46,5 +46,11 @@ public class MainPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", starIcon);
     }
 
+    // Method to get the name of a cryptocurrency
+    public String getCryptoName(WebElement cryptoRow) {
+        WebElement nameElement = cryptoRow.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/div[1]/div[2]/div/div[1]/div[4]/table/tbody/tr[1]/td[3]/div/a/div/div/div/p"));
+        return nameElement.getText();
+    }
+
 
 }
