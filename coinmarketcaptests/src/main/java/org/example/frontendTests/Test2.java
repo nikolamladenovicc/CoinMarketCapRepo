@@ -42,7 +42,7 @@ public class Test2 {
     }
 
     @Test
-    public void testAddCryptosToWatchlist() throws InterruptedException {
+    public void testAddCryptosToWatchlist() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Implicit wait
         // Find the list of all cryptocurrencies on page
         List<WebElement> cryptoRows = mainPage.getCryptoRows();

@@ -26,6 +26,7 @@ public class Test3 {
         // Set the path of the ChromeDriver
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\QH0158\\IdeaProjects\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Implicit wait
         mainPage = new MainPage(driver);
     }
 
@@ -33,7 +34,6 @@ public class Test3 {
     public void testFilterFunctionality() throws InterruptedException {
         // Open CoinMarketApp website
         driver.get("https://coinmarketcap.com/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Implicit wait
         // Click the drop-down menu on "Cryptocurrencies" tab
         mainPage.openCryptoTab();
         mainPage.selectCurrenciesTab();
