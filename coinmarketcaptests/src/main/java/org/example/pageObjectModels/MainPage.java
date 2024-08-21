@@ -80,19 +80,7 @@ public class MainPage {
     }
     public void applyFilters() throws InterruptedException {
         driver.findElement(filterButton).click();
-        Thread.sleep(2000);
         driver.findElement(categoryButton).click();
-        Thread.sleep(2000);
-        driver.findElement(platformButton).click();
-        Thread.sleep(2000);
-    }
-    public void filterButton(){
-        driver.findElement(filterButton).click();
-    }
-    public void categoryButton(){
-        driver.findElement(categoryButton).click();
-    }
-    public void platformButton(){
         driver.findElement(platformButton).click();
     }
     public List<String> recordFilteredData() {
@@ -103,6 +91,7 @@ public class MainPage {
         }
         return filteredCryptoNames;
     }
+
 
 
 

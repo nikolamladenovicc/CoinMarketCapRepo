@@ -1,10 +1,13 @@
 package org.example.frontendTests;
 
 import org.example.pageObjectModels.MainPage;
+import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,6 +15,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Test3 {
     private WebDriver driver;
@@ -29,20 +33,15 @@ public class Test3 {
     public void testFilterFunctionality() throws InterruptedException {
         // Open CoinMarketApp website
         driver.get("https://coinmarketcap.com/");
-        Thread.sleep(5000);
-
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Implicit wait
         // Click the drop-down menu on "Cryptocurrencies" tab
         mainPage.openCryptoTab();
-        Thread.sleep(2000);
         mainPage.selectCurrenciesTab();
-        Thread.sleep(2000);
         mainPage.selectFullListOption();
-        Thread.sleep(5000);
 
         // Record the data from the current page
         List<String> initialData = mainPage.recordInitialData();
 
-        
         // Use the filters
         mainPage.applyFilters();
 
@@ -58,7 +57,6 @@ public class Test3 {
         else {
             System.out.println("TEST PASSED | The filtered data is different from the initial data.");
         }
-        Thread.sleep(2000);
     }
 
     @AfterClass

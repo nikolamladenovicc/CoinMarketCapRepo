@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -42,6 +43,7 @@ public class Test2 {
 
     @Test
     public void testAddCryptosToWatchlist() throws InterruptedException {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Implicit wait
         // Find the list of all cryptocurrencies on page
         List<WebElement> cryptoRows = mainPage.getCryptoRows();
 
@@ -58,8 +60,6 @@ public class Test2 {
 
             // Click on Star Icon to add to the Watchlist
             mainPage.addToWatchlist(cryptoRow);
-            // Wait for the Star Icon to change
-            Thread.sleep(1000);
         }
 
         // Open the new tab
@@ -71,7 +71,6 @@ public class Test2 {
 
         // Open the Watchlist page
         driver.get("https://coinmarketcap.com/watchlist/");
-        Thread.sleep(1000);
 
         // Check if the all selected cryptocurrencies are added to Watchlist
         List<WebElement> watchlistItems = watchlistPage.getWatchlistItems();
@@ -84,7 +83,6 @@ public class Test2 {
             Assert.assertTrue(watchlistNames.contains(cryptoName), "Crypto " + cryptoName + " not found in watchlist!");
         }
         System.out.println("TEST PASSED | Cryptocurrencies successfully added to the Watchlist.");
-        Thread.sleep(2000);
     }
 
 
