@@ -42,6 +42,7 @@ public class Test3 {
         // Record the data from the current page
         List<String> initialData = mainPage.recordInitialData();
 
+        
         // Use the filters
         mainPage.applyFilters();
 
