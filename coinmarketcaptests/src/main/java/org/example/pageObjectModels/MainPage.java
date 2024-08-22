@@ -78,18 +78,39 @@ public class MainPage {
         }
         return initialCryptoNames;
     }
-    public void applyFilters() throws InterruptedException {
+    public void clickFilterButton(){
         driver.findElement(filterButton).click();
+    }
+    public void clickCategoryButton(){
         driver.findElement(categoryButton).click();
+    }
+    public void clickPlatformButton(){
         driver.findElement(platformButton).click();
     }
     public List<String> recordFilteredData() {
-        List<WebElement> filteredData = driver.findElements(cryptoTable);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> filteredData = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(cryptoTable));
         List<String> filteredCryptoNames = new ArrayList<>();
         for (WebElement crypto : filteredData) {
             filteredCryptoNames.add(crypto.getText());
         }
         return filteredCryptoNames;
+    }
+
+    public boolean displayCategoryButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> button = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(categoryButton));
+        return !button.isEmpty();
+    }
+    public boolean displayPlatformButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> button = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(platformButton));
+        return !button.isEmpty();
+    }
+    public boolean displayResults(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> button = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(cryptoTable));
+        return !button.isEmpty();
     }
 
 
